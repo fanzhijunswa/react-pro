@@ -1,0 +1,72 @@
+#Login {
+  width: 100%;
+  height: 100%;
+  background: url('http://pic.netbian.com/uploads/allimg/201127/001154-16064071148e42.jpg') no-repeat;
+  background-size: 100% 100%;
+  .login-header {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    padding: 0 40px;
+    overflow: hidden;
+    border-bottom: 1px solid #fefefe;
+    h1 {
+      float: left;
+      color: #fefefe;
+      padding: 0;
+      margin: 0;
+    }
+    .right-all {
+      float: right;
+      overflow: hidden;
+      .right-item {
+        float: left;
+        font-size: 14px;
+        &:nth-child(2) {
+          margin: 0 30px;
+        }
+      }
+    }
+  }
+  .login-content {
+    width: 100%;
+    height: calc(100% - 80px);
+    &>.container {
+      width: 100%;
+      height: 100%;
+      padding: 40px;
+      position: relative;
+      &>.form-all {
+        border-radius: 8px;
+        width: 400px;
+        height: 300px;
+        background-color: white;
+        box-shadow: 0 0 7px 1px #c5c5c5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        .form-up {
+          text-align: center;
+          padding: 10px 0;
+          h1 {
+            margin: 0;
+            padding: 0;
+          }
+        }
+        .form-down {
+          height: calc(100% - 78px);
+          padding: 0 20px;
+          position: relative;
+          #basic {
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+          }
+        }
+      }
+    }
+  }
+}
