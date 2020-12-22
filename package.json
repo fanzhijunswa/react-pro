@@ -28,7 +28,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-useless-constructor": "off"
+    }
   },
   "browserslist": {
     "production": [

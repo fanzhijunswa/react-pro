@@ -1,0 +1,34 @@
+[
+  {
+    "parentId": "0",
+    "_id": "asdasdasdasdasdasd",
+    "name": "家用电器"
+  },
+  {
+    "parentId": "0",
+    "_id": "vcvcvcvcvcvcv",
+    "name": "电脑"
+  },
+  {
+    "parentId": "0",
+    "_id": "klklklklkl",
+    "name": "玩具"
+  },
+  {
+    "parentId": "0",
+    "_id": "klklklkopopopoplkl",
+    "name": "图书"
+  },{
+    "parentId": "0",
+    "_id": "uiuiuiuiui",
+    "name": "服装"
+  },{
+    "parentId": "0",
+    "_id": "23w232323",
+    "name": "食品"
+  },{
+    "parentId": "0",
+    "_id": "nnmnmnmnm",
+    "name": "美妆"
+  }
+]

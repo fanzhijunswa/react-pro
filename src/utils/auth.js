@@ -1,11 +1,21 @@
 // class Api  {  
 // }
 
-import {axios} from 'axios'
+import axios from 'axios'
 
+const instance = axios.create()
+
+
+instance.interceptors.response.use(res => {
+  return res?.data??res
+},
+error => {
+  return Promise.reject(error)
+}
+)
 const apiFun = (url,data,method) => {
   return new Promise((resolve,reject) => {
-    axios({
+    instance({
       url,
       method,
       [method.toLocaleLowerCase === 'get' ? 'params' : 'data'] : data
@@ -13,9 +23,11 @@ const apiFun = (url,data,method) => {
   })
 }
 
-export default class Api {
-  get=(url,data) => apiFun(url,data,'get')
-  post=(url,data) => apiFun(url,data,'post')
-  delete=(url,data) => apiFun(url,data,'delete')
-  put=(url,data) => apiFun(url,data,'put')
+class Api {
+  get=(url,data = {}) => apiFun(url,data,'get')
+  post=(url,data = {}) => apiFun(url,data,'post')
+  delete=(url,data = {}) => apiFun(url,data,'delete')
+  put=(url,data = {}) => apiFun(url,data,'put')
 }
+
+export default new Api()

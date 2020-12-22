@@ -1,48 +1,35 @@
-import {HomeOutlined,FileOutlined,EditOutlined,StarOutlined,SettingOutlined} from '@ant-design/icons';
+import { HomeOutlined, FileOutlined, EditOutlined, StarOutlined, SettingOutlined } from '@ant-design/icons';
 
-export const menuItems =  [
+export const menuItems = [
   {
     path: '/',
     name: '首页',
     icon: <HomeOutlined />,
     key: '/'
-  },{
-    path: '/article',
-    name: '文章管理',
+  }, {
+    path: '/goods',
+    name: '商品',
     icon: <FileOutlined />,
-    key: '/article',
+    key: '/goods',
     children: [
       {
-        path: '/write',
-        name: '写文章',
+        path: '/goods/category',
+        name: '品类管理',
         icon: <EditOutlined />,
-        key: '/write',
-        children: [
-          {
-            path: '/test1',
-            name: '测试1',
-            icon: <EditOutlined />,
-            key: '/test1',
-          },{
-            path: '/test2',
-            name: '测试2',
-            icon: <StarOutlined />,
-            key: '/test2'
-          }
-        ]
-      },{
-        path: '/like',
-        name: '收藏',
+        key: '/goods/category',
+      }, {
+        path: '/goods/menage',
+        name: '商品管理',
         icon: <StarOutlined />,
-        key: '/like'
+        key: '/goods/menage'
       }
     ]
-  },{
+  }, {
     path: '/option',
     name: '选项',
     icon: <SettingOutlined />,
     key: '/option'
-  },{
+  }, {
     path: '/movie',
     name: '电影',
     icon: <SettingOutlined />,
