@@ -1,45 +1,14 @@
-import api from '../utils/auth'
+import goods from './item'
 
-const subsCategoryList = [
-  {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "111",
-    "name": "电视"
-  }, {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "222",
-    "name": "冰箱"
-  }, {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "333",
-    "name": "风扇"
-  }, {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "444",
-    "name": "空调"
-  }, {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "555",
-    "name": "电暖气"
-  }, {
-    "parentId": "asdasdasdasdasdasd",
-    "_id": "666",
-    "name": "游戏机"
-  }, {
-    "parentId": "klklklklkl",
-    "_id": "777",
-    "name": "变形金刚"
-  },
-]
-
-export const getGoods = async goodsId => {
-  let data = []
-  if(goodsId === '0') {
-    data = await api.get('http://localhost:3000/api.json')
-  }else {
-    data = subsCategoryList.filter(item => item.parentId === goodsId)
-  }
-  return new Promise(resolve => {
-    resolve(data)
+export const getGoods = id => {
+  return new Promise((resolve,reject) => {
+    switch(id) {
+      case '0': resolve(goods[0]);break;
+      case 'asdasdasdasdasdasd': resolve(goods[1]);break;
+      case '00000000001': resolve(goods[2]);break;
+      case 'xxxxxxxxxxx1': resolve(goods[3]);break;
+      case 'bbbbbbbbb1': resolve(goods[4]);break;
+      default: resolve([])
+    }
   })
 }

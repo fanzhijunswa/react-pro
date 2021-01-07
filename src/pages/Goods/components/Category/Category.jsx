@@ -1,80 +1,71 @@
 import React from 'react'
-import { getGoods } from '../../../../server/Goods'
-import { Table, Button } from 'antd';
-import './Category.less'
+import CategoryBreadCrump from './components/CategoryBreadCrump'
+import CategoryTable from './components/CategoryTable'
 import { sleep } from '../../../../utils/tools'
 
 export default class Category extends React.Component {
-  state = {
-    tableList: [],
-    goodsId: '0',
-    goodsName: '',
-  }
-  loading = false
-
-  pageOption = {
-    total: 0,
-    defaultPageSize: 5,
-    showSizeChanger: true,
-    showQuickJumper: true,
-    pageSizeOptions: [5, 10, 15, 20]
-  }
-  constructor(props, state) {
-    super(props, state)
+  constructor(props) {
+    super(props)
+    this.state = {
+      categoryBarList: [],
+      tableList: [],
+      parentId: '0'
+    }
   }
 
-  initColumnList = () => {
-    this.columnList = [
-      {
-        title: '分类的名称',
-        dataIndex: 'name',
-        key: 'name',
-      }, {
-        title: '操作',
-        width: 300,
-        dataIndex: '',
-        key: 'x',
-        render: category => (
-          <span>
-            <Button type="link" >修改分类</Button>
-            <Button type="link">查看子分类</Button>
-          </span>
-        ),
-      },
-    ];
+  onRef = ref => {
+    this.child = ref
   }
-  async getTableList() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        this.loading = true
-        await sleep(1000)
-        const tableList =  await getGoods()
-        this.pageOption.total = tableList.length
-        this.setState({ tableList })
-      } catch (e) {
-        console.warn(e)
-      } finally {
-        this.loading = false
-      }
+
+  componentWillMount() {
+    const {categoryBarList} = this.state
+    Array.prototype.push.call(categoryBarList,{_id:undefined,name:'首页'})
+    this.setState({categoryBarList})
+  }
+
+  async componentDidMount() {
+    const { tableList, parentId } = this.state
+    const subs = await this.child.getTableList(parentId)
+    Array.prototype.push.call(tableList, subs)
+    this.setState({
+      tableList
     })
   }
-  componentWillMount() {
-    this.initColumnList()
+
+
+  setCategory = async category => {
+    const { categoryBarList, tableList } = this.state
+    let {parentId} = this.state
+    if (category._id === undefined) {
+      Array.prototype.splice.call(categoryBarList, 1)
+      Array.prototype.splice.call(tableList, 1)
+    } else {
+      const index = categoryBarList.findIndex(item => item._id === category._id)
+      parentId = index === -1 ? category._id : category.parentId
+      if (index === -1) {
+        const subs = await this.child.getTableList(parentId)
+        Array.prototype.push.call(categoryBarList, category)
+        Array.prototype.push.call(tableList, subs)
+      } else {
+        Array.prototype.splice.call(categoryBarList, index + 1)
+        Array.prototype.splice.call(tableList, index + 1)
+      }
+    }
+    this.setState({
+      categoryBarList,
+      tableList,
+      parentId
+    }, () => {
+      console.log(this.state.tableList)
+      // this.child.getTableList()
+    })
   }
-  async componentDidMount() {
-    this.getTableList()
-  }
+
   render() {
     return (
       <div id="Category">
-        <Table
-          bordered
-          rowKey="_id"
-          pagination={{ ...this.pageOption }}
-          loading={this.state.loading}
-          columns={this.columnList}
-          dataSource={this.state.tableList}
-        />
+        <CategoryBreadCrump setCategory={this.setCategory} categoryBarList={this.state.categoryBarList} />
+        <CategoryTable onRef={this.onRef} parentId={this.state.parentId} setCategory={this.setCategory} tableList={this.state.tableList} />
       </div>
     )
   }
